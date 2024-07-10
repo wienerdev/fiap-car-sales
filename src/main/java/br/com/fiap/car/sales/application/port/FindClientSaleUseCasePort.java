@@ -1,4 +1,4 @@
-package br.com.fiap.car.sales.application.sale.port;
+package br.com.fiap.car.sales.application.port;
 
 import br.com.fiap.car.sales.application.dto.response.FindClientSaleResponse;
 

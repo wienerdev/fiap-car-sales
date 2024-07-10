@@ -1,4 +1,4 @@
-package br.com.fiap.car.sales.application.sale.usecase;
+package br.com.fiap.car.sales.application.usecase;
 
 import br.com.fiap.car.sales.adapter.out.feign.VehicleRegClient;
 import br.com.fiap.car.sales.application.dto.BaseVehicleRequest;
@@ -7,27 +7,25 @@ import br.com.fiap.car.sales.application.dto.request.VehicleReserveRequest;
 import br.com.fiap.car.sales.application.dto.request.VehicleSellRequest;
 import br.com.fiap.car.sales.application.dto.response.VehicleReserveResponse;
 import br.com.fiap.car.sales.application.dto.response.VehicleSellResponse;
-import br.com.fiap.car.sales.application.interfaces.ClientSaleRepository;
-import br.com.fiap.car.sales.application.sale.port.VehicleSellUseCasePort;
+import br.com.fiap.car.sales.application.port.ClientSaleRepositoryPort;
+import br.com.fiap.car.sales.application.port.VehicleSellUseCasePort;
 import br.com.fiap.car.sales.domain.ClientSale;
 import br.com.fiap.car.sales.domain.enums.SaleStatusEnum;
 import br.com.fiap.car.sales.domain.enums.VehicleStatusEnum;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Base64;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class VehicleSellUseCase implements VehicleSellUseCasePort {
 
     private final VehicleRegClient vehicleRegClient;
-    private final ClientSaleRepository clientSaleRepository;
+    private final ClientSaleRepositoryPort clientSaleRepositoryPort;
     private final ModelMapper modelMapper;
 
     @Override
@@ -45,7 +43,7 @@ public class VehicleSellUseCase implements VehicleSellUseCasePort {
     }
 
     private ClientSale createClientSale(BaseVehicleRequest request, SaleStatusEnum saleStatus) {
-        ClientSale clientSale = clientSaleRepository.findByVehicleId(request.getIdVeiculo())
+        ClientSale clientSale = clientSaleRepositoryPort.findByVehicleId(request.getIdVeiculo())
                 .map(existingClientSale -> ClientSale.builder()
                         .idVenda(existingClientSale.getIdVenda())
                         .idVeiculo(request.getIdVeiculo())
@@ -62,7 +60,7 @@ public class VehicleSellUseCase implements VehicleSellUseCasePort {
                         .dataVenda(LocalDateTime.now())
                         .build());
 
-        return clientSaleRepository.save(clientSale);
+        return clientSaleRepositoryPort.save(clientSale);
     }
 
     private void updateVehicleStatus(Long idVeiculo, VehicleStatusEnum vehicleStatus) {

@@ -2,7 +2,7 @@ package br.com.fiap.car.sales.adapter.in.web;
 
 import br.com.fiap.car.sales.application.dto.request.GetPaymentStatusRequest;
 import br.com.fiap.car.sales.application.dto.response.GetPaymentStatusResponse;
-import br.com.fiap.car.sales.application.sale.port.GetPaymentStatusUseCasePort;
+import br.com.fiap.car.sales.application.port.GetPaymentStatusUseCasePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

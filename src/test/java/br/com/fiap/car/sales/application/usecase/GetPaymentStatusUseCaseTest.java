@@ -1,4 +1,4 @@
-package br.com.fiap.car.sales.application.sale.usecase;
+package br.com.fiap.car.sales.application.usecase;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import br.com.fiap.car.sales.application.dto.request.GetPaymentStatusRequest;
 import br.com.fiap.car.sales.application.dto.response.GetPaymentStatusResponse;
-import br.com.fiap.car.sales.application.interfaces.ClientSaleRepository;
+import br.com.fiap.car.sales.application.port.ClientSaleRepositoryPort;
 import br.com.fiap.car.sales.domain.ClientSale;
 import br.com.fiap.car.sales.domain.enums.SaleStatusEnum;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,13 +21,13 @@ import java.util.Optional;
 public class GetPaymentStatusUseCaseTest {
 
     @MockBean
-    private ClientSaleRepository clientSaleRepository;
+    private ClientSaleRepositoryPort clientSaleRepositoryPort;
 
     private GetPaymentStatusUseCase getPaymentStatusUseCase;
 
     @BeforeEach
     void setUp() {
-        getPaymentStatusUseCase = new GetPaymentStatusUseCase(clientSaleRepository);
+        getPaymentStatusUseCase = new GetPaymentStatusUseCase(clientSaleRepositoryPort);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class GetPaymentStatusUseCaseTest {
         ClientSale clientSale = new ClientSale();
         clientSale.setCodigoPagamento("paymentCode123");
         clientSale.setStatusVenda(SaleStatusEnum.COMPLETO);
-        when(clientSaleRepository.findByPaymentCode("paymentCode123")).thenReturn(Optional.of(clientSale));
+        when(clientSaleRepositoryPort.findByPaymentCode("paymentCode123")).thenReturn(Optional.of(clientSale));
 
         GetPaymentStatusResponse response = getPaymentStatusUseCase.getPaymentStatus(request);
 
@@ -47,7 +47,7 @@ public class GetPaymentStatusUseCaseTest {
     @Test
     void getPaymentStatusWhenPaymentCodeDoesNotExistThrowsNotFoundException() {
         GetPaymentStatusRequest request = new GetPaymentStatusRequest("invalidCode");
-        when(clientSaleRepository.findByPaymentCode("invalidCode")).thenReturn(Optional.empty());
+        when(clientSaleRepositoryPort.findByPaymentCode("invalidCode")).thenReturn(Optional.empty());
 
         assertThrows(NotFoundException.class, () -> getPaymentStatusUseCase.getPaymentStatus(request));
     }

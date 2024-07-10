@@ -1,11 +1,10 @@
-package br.com.fiap.car.sales.application.sale.usecase;
+package br.com.fiap.car.sales.application.usecase;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import br.com.fiap.car.sales.adapter.out.jpa.vehicle.entities.ClientSaleEntity;
 import br.com.fiap.car.sales.application.dto.response.FindClientSaleResponse;
-import br.com.fiap.car.sales.application.interfaces.ClientSaleRepository;
+import br.com.fiap.car.sales.application.port.ClientSaleRepositoryPort;
 import br.com.fiap.car.sales.domain.ClientSale;
 import br.com.fiap.car.sales.utils.ClientSaleTestUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +20,7 @@ import java.util.List;
 public class FindClientSaleUseCaseTest {
 
     @MockBean
-    private ClientSaleRepository clientSaleRepository;
+    private ClientSaleRepositoryPort clientSaleRepositoryPort;
 
     @MockBean
     private ModelMapper modelMapper;
@@ -30,12 +29,12 @@ public class FindClientSaleUseCaseTest {
 
     @BeforeEach
     void setUp() {
-        findClientSaleUseCase = new FindClientSaleUseCase(clientSaleRepository, modelMapper);
+        findClientSaleUseCase = new FindClientSaleUseCase(clientSaleRepositoryPort, modelMapper);
     }
 
     @Test
     void findAllClientSalesWhenNoSalesExistAndreturnsEmptyList() {
-        when(clientSaleRepository.findAll()).thenReturn(List.of());
+        when(clientSaleRepositoryPort.findAll()).thenReturn(List.of());
 
         List<FindClientSaleResponse> result = findClientSaleUseCase.findAllClientSales();
 
@@ -47,7 +46,7 @@ public class FindClientSaleUseCaseTest {
         ClientSale clientSaleMock = ClientSaleTestUtils.generateClientSale();
         var expectedResponse = ClientSaleTestUtils.generateFindClientSaleResponse();
         List<ClientSale> sales = Arrays.asList(clientSaleMock);
-        when(clientSaleRepository.findAll()).thenReturn(sales);
+        when(clientSaleRepositoryPort.findAll()).thenReturn(sales);
         when(modelMapper.map(any(), eq(FindClientSaleResponse.class))).thenReturn(expectedResponse);
 
         List<FindClientSaleResponse> result = findClientSaleUseCase.findAllClientSales();

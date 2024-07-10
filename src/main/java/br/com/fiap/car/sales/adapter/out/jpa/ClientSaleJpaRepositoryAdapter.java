@@ -2,7 +2,7 @@ package br.com.fiap.car.sales.adapter.out.jpa;
 
 import br.com.fiap.car.sales.adapter.out.jpa.vehicle.entities.ClientSaleEntity;
 import br.com.fiap.car.sales.adapter.out.jpa.vehicle.repositories.ClientSaleJpaRepository;
-import br.com.fiap.car.sales.application.interfaces.ClientSaleRepository;
+import br.com.fiap.car.sales.application.port.ClientSaleRepositoryPort;
 import br.com.fiap.car.sales.domain.ClientSale;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class ClientSaleJpaRepositoryAdapter implements ClientSaleRepository {
+public class ClientSaleJpaRepositoryAdapter implements ClientSaleRepositoryPort {
 
     private final ClientSaleJpaRepository clientSaleJpaRepository;
 

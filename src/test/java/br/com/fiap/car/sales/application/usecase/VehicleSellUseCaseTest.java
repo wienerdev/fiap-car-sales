@@ -1,11 +1,11 @@
-package br.com.fiap.car.sales.application.sale.usecase;
+package br.com.fiap.car.sales.application.usecase;
 
 import br.com.fiap.car.sales.adapter.out.feign.VehicleRegClient;
 import br.com.fiap.car.sales.application.dto.request.VehicleReserveRequest;
 import br.com.fiap.car.sales.application.dto.request.VehicleSellRequest;
 import br.com.fiap.car.sales.application.dto.response.VehicleReserveResponse;
 import br.com.fiap.car.sales.application.dto.response.VehicleSellResponse;
-import br.com.fiap.car.sales.application.interfaces.ClientSaleRepository;
+import br.com.fiap.car.sales.application.port.ClientSaleRepositoryPort;
 import br.com.fiap.car.sales.domain.ClientSale;
 import br.com.fiap.car.sales.domain.enums.SaleStatusEnum;
 import br.com.fiap.car.sales.utils.ClientSaleTestUtils;
@@ -27,7 +27,7 @@ public class VehicleSellUseCaseTest {
     private VehicleRegClient vehicleRegClient;
 
     @MockBean
-    private ClientSaleRepository clientSaleRepository;
+    private ClientSaleRepositoryPort clientSaleRepositoryPort;
 
     @MockBean
     private ModelMapper modelMapper;
@@ -36,7 +36,7 @@ public class VehicleSellUseCaseTest {
 
     @BeforeEach
     void setUp() {
-        vehicleSellUseCase = new VehicleSellUseCase(vehicleRegClient, clientSaleRepository, modelMapper);
+        vehicleSellUseCase = new VehicleSellUseCase(vehicleRegClient, clientSaleRepositoryPort, modelMapper);
     }
 
     @Test
@@ -45,8 +45,8 @@ public class VehicleSellUseCaseTest {
         ClientSale clientSale = ClientSaleTestUtils.generateClientSale();
         VehicleSellResponse expectedResponse = ClientSaleTestUtils.generateVehicleSellResponse();
 
-        when(clientSaleRepository.findByVehicleId(1L)).thenReturn(Optional.empty());
-        when(clientSaleRepository.save(any(ClientSale.class))).thenReturn(clientSale);
+        when(clientSaleRepositoryPort.findByVehicleId(1L)).thenReturn(Optional.empty());
+        when(clientSaleRepositoryPort.save(any(ClientSale.class))).thenReturn(clientSale);
         when(modelMapper.map(any(ClientSale.class), eq(VehicleSellResponse.class))).thenReturn(expectedResponse);
 
         VehicleSellResponse response = vehicleSellUseCase.sellVehicle(request);
@@ -61,8 +61,8 @@ public class VehicleSellUseCaseTest {
         ClientSale clientSale = ClientSaleTestUtils.generateClientSale();
         VehicleReserveResponse expectedResponse = ClientSaleTestUtils.generateVehicleReserveResponse();
 
-        when(clientSaleRepository.findByVehicleId(1L)).thenReturn(Optional.empty());
-        when(clientSaleRepository.save(any(ClientSale.class))).thenReturn(clientSale);
+        when(clientSaleRepositoryPort.findByVehicleId(1L)).thenReturn(Optional.empty());
+        when(clientSaleRepositoryPort.save(any(ClientSale.class))).thenReturn(clientSale);
         when(modelMapper.map(any(ClientSale.class), eq(VehicleReserveResponse.class))).thenReturn(expectedResponse);
 
         VehicleReserveResponse response = vehicleSellUseCase.reserveVehicle(request);

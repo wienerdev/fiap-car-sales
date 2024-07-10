@@ -1,10 +1,9 @@
-package br.com.fiap.car.sales.application.sale.usecase;
+package br.com.fiap.car.sales.application.usecase;
 
 import br.com.fiap.car.sales.adapter.out.feign.VehicleRegClient;
 import br.com.fiap.car.sales.application.dto.VehicleDto;
 import br.com.fiap.car.sales.application.dto.response.FindVehicleStatusResponse;
-import br.com.fiap.car.sales.application.sale.port.FindVehicleSaleUseCasePort;
-import br.com.fiap.car.sales.domain.ClientSale;
+import br.com.fiap.car.sales.application.port.FindVehicleSaleUseCasePort;
 import br.com.fiap.car.sales.domain.enums.VehicleStatusEnum;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

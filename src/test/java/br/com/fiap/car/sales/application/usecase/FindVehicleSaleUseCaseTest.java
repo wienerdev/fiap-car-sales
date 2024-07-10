@@ -1,4 +1,4 @@
-package br.com.fiap.car.sales.application.sale.usecase;
+package br.com.fiap.car.sales.application.usecase;
 
 import br.com.fiap.car.sales.adapter.out.feign.VehicleRegClient;
 import br.com.fiap.car.sales.application.dto.VehicleDto;
