@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>br.com.fiap</groupId>
 	<artifactId>fiap-car-sales</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>fiap-car-sales</name>
 	<description>Aplicação para Venda de Veículos</description>
 	<properties>

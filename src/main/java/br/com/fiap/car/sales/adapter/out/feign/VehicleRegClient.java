@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-@FeignClient(value = "fiap-car-reg", url = "http://localhost:8080/api/v1/vehicle")
+@FeignClient(value = "fiap-car-reg", url = "${spring.feign.client.fiap-car-reg.url}")
 public interface VehicleRegClient {
 
     @RequestMapping(method = RequestMethod.GET)
