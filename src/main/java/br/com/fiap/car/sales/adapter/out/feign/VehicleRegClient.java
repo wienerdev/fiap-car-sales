@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-@FeignClient(value = "fiap-car-reg", url = "https://fiap-car-reg-api-2-wienerdev-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/api/v1")
+@FeignClient(value = "fiap-car-reg", url = "http://kourier-internal.knative-serving-ingress.svc.cluster.local:80/api/v1")
 public interface VehicleRegClient {
 
     @GetMapping("/vehicle")
