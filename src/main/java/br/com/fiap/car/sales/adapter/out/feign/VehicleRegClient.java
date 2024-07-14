@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-@FeignClient(value = "fiap-car-reg", url = "${spring.feign.client.fiap-car-reg.url}")
+@FeignClient(value = "fiap-car-reg", url = "https://fiap-car-reg-api-2-wienerdev-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com/api/v1")
 public interface VehicleRegClient {
 
-    @GetMapping(value = "/vehicle")
+    @GetMapping("/vehicle")
     List<VehicleDto> findAllVehicles();
 
-    @PostMapping(value = "/vehicle")
+    @PostMapping("/vehicle")
     VehicleDto updateVehicleStatus(UpdateVehicleStatusRequest dto);
 }
