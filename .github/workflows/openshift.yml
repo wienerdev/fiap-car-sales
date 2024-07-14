@@ -57,4 +57,5 @@ jobs:
 
       - name: Deploy App
         run: |
-          oc set image dc/fiap-car-sales-api fiap-car-sales-api=docker.io/wienerdev/fiap-car-sales/latest -n wienerdev-dev
+          oc set image dc/fiap-car-sales-api default-container=docker.io/wienerdev/fiap-car-sales:latest -n wienerdev-dev
+
