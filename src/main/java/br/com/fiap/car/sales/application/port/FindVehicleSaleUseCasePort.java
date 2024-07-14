@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface FindVehicleSaleUseCasePort {
 
-    List<FindVehicleStatusResponse> findVehiclesToSaleSortedByCheapestPrice();
+    List<FindVehicleStatusResponse> findVehiclesToSaleSortedByCheapestPrice() throws Exception;
     List<FindVehicleStatusResponse> findSoldVehiclesSortedByCheapestPrice();
 }

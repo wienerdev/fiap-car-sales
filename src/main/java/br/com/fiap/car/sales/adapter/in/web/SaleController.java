@@ -26,7 +26,7 @@ public class SaleController {
     private final VehicleSellUseCasePort vehicleSellUseCasePort;
 
     @GetMapping("/vehicles/available")
-    public ResponseEntity<List<FindVehicleStatusResponse>> findAllVehiclesToSaleOrderedByCheapestPrice() {
+    public ResponseEntity<List<FindVehicleStatusResponse>> findAllVehiclesToSaleOrderedByCheapestPrice() throws Exception {
         return new ResponseEntity<>(findVehicleSaleUseCasePort.findVehiclesToSaleSortedByCheapestPrice(), HttpStatus.OK);
     }
 

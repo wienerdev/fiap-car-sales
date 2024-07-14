@@ -34,7 +34,7 @@ public class FindVehicleSaleUseCaseTest {
     }
 
     @Test
-    void findVehiclesToSaleSortedByCheapestPriceWhenAvailableVehiclesExistAndReturnsSortedVehicles() {
+    void findVehiclesToSaleSortedByCheapestPriceWhenAvailableVehiclesExistAndReturnsSortedVehicles() throws Exception {
         VehicleDto vehicle1 = ClientSaleTestUtils.generateVehicleDtoAvailable();
         List<VehicleDto> vehicles = Arrays.asList(vehicle1);
         when(vehicleRegClient.findAllVehicles()).thenReturn(vehicles);
@@ -48,7 +48,7 @@ public class FindVehicleSaleUseCaseTest {
     }
 
     @Test
-    void findVehiclesToSaleSortedByCheapestPriceWhenNoAvailableVehiclesAndReturnsEmptyList() {
+    void findVehiclesToSaleSortedByCheapestPriceWhenNoAvailableVehiclesAndReturnsEmptyList() throws Exception {
         when(vehicleRegClient.findAllVehicles()).thenReturn(Arrays.asList());
 
         List<FindVehicleStatusResponse> result = findVehicleSaleUseCase.findVehiclesToSaleSortedByCheapestPrice();
