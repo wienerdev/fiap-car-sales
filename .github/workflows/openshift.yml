@@ -1,0 +1,60 @@
+name: Pipeline fiap-car-reg
+
+env:
+  OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
+  OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+  OPENSHIFT_NAMESPACE: "wienerdev-dev"
+  APP_NAME: "fiap-car-sales"
+  IMAGE_REGISTRY: docker.io/wienerdev
+  IMAGE_REGISTRY_USER: wienerdev
+  IMAGE_REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+  IMAGE_TAGS: "latest"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: docker-practice/actions-setup-docker@master
+        timeout-minutes: 12
+      - run: |
+          set -x
+          docker version
+
+      - name: Install oc
+        uses: redhat-actions/openshift-tools-installer@v1
+        with:
+          oc: 4
+      
+      - name: oc login
+        run: |
+          oc login --token=${{ secrets.OPENSHIFT_TOKEN }} --server=${{ secrets.OPENSHIFT_SERVER }}
+
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Docker build
+        run: |
+          docker build -t wienerdev/fiap-car-sales:latest .
+
+      - name: Docker login
+        run: |
+          docker login -u wienerdev -p ${{ secrets.REGISTRY_PASSWORD }}
+      
+      - name: Docker push
+        run: |
+          docker push wienerdev/fiap-car-sales:latest
+
+      - name: oc import image
+        run: |
+          oc import-image image-registry.openshift-image-registry.svc:5000/${{ env.OPENSHIFT_NAMESPACE }}/${{ env.APP_NAME }}:latest --from=${{ env.IMAGE_REGISTRY }}/${{ env.APP_NAME }} --confirm -n ${{ env.OPENSHIFT_NAMESPACE }}
+
+
+      - name: Deploy App
+        run: |
+          oc set image dc/fiap-car-sales-api fiap-car-sales-api=docker.io/wienerdev/fiap-car-sales-api/latest -n wienerdev-dev
