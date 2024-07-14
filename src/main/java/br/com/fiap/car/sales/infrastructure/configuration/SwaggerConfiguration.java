@@ -10,8 +10,8 @@ public class SwaggerConfiguration {
     @Bean
     public OpenAPI usersMicroserviceOpenAPI() {
         return new OpenAPI()
-                .info(new Info().title("Fiap Car Registration")
-                        .description("Fiap Car Registration")
+                .info(new Info().title("Fiap Car Sales")
+                        .description("Fiap Car Sales")
                         .version("1.0"));
     }
 }
