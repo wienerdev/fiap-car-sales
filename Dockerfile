@@ -13,5 +13,5 @@ WORKDIR /app
 
 COPY --from=build /app/target/fiap-car-sales-0.0.1.jar /app/
 
-EXPOSE 8080
+EXPOSE 8081
 ENTRYPOINT java -jar fiap-car-sales-0.0.1.jar --spring.profiles.active=prod
