@@ -4,7 +4,7 @@ import br.com.fiap.car.sales.application.dto.VehicleDto;
 import br.com.fiap.car.sales.application.dto.request.UpdateVehicleStatusRequest;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 
@@ -14,6 +14,6 @@ public interface VehicleRegClient {
     @GetMapping("/vehicle")
     List<VehicleDto> findAllVehicles();
 
-    @PostMapping("/vehicle")
+    @PutMapping("/vehicle")
     VehicleDto updateVehicleStatus(UpdateVehicleStatusRequest dto);
 }
