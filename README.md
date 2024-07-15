@@ -4,7 +4,7 @@ FiapCar Sales API 🚗
 </h1>
 <br>
 
-[![Pipeline fiap-car-reg](https://github.com/wienerdev/fiap-car-sales/actions/workflows/openshift.yml/badge.svg)](https://github.com/wienerdev/fiap-car-sales/actions/workflows/openshift.yml)
+[![Pipeline fiap-car-sales](https://github.com/wienerdev/fiap-car-sales/actions/workflows/openshift.yml/badge.svg)](https://github.com/wienerdev/fiap-car-sales/actions/workflows/openshift.yml)
 
 ## 💬 Sobre o repositório
 
